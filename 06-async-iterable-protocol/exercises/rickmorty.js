@@ -1,3 +1,5 @@
+import axios from 'axios'
+
 /*
   Exercise
   Let's create a utility function to retrieve all the Rick and Morty characters!
@@ -32,5 +34,27 @@
 */
 
 export default function createCharactersPaginator () {
-  // return an iterator that returns pages of characters
-}
+    let nextPage = 'https://rickandmortyapi.com/api/character'
+    return {
+      [Symbol.asyncIterator] () {
+        return {
+          async next () {
+            if (nextPage === null) {
+              return { done: true, value: undefined }
+            }
+  
+            const resp = await axios.get(nextPage)
+            nextPage = resp.data.info.next
+  
+            const pageData = resp.data.results.map((char) => char.name)
+            return { done: false, value: pageData }
+          }
+        }
+      }
+    }
+  }
+  
+  //const paginator = createCharactersPaginator()
+  //for await (const page of paginator) {
+  //  console.log(page)
+  //}
