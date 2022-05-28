@@ -34,7 +34,13 @@
  * @returns {[string]}
  */
 export default function champions (athletes) {
-  const wonAtLeast3Medals = []
-  // write your logic here
-  return wonAtLeast3Medals
+  const hasAtLeastThreeMedals = []
+  for (const [athlete, medals] of Object.entries(athletes)) {
+    const countOfMedals = Object.values(medals).reduce((acc, curr) => acc + curr)
+    if (countOfMedals >= 3) {
+      hasAtLeastThreeMedals.push(athlete)
+      console.log(`Athlete ${athlete} has ${countOfMedals} medals.`)
+    }
+  }
+  return hasAtLeastThreeMedals
 }

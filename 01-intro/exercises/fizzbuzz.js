@@ -31,11 +31,28 @@
 */
 
 /**
+ * @description Generates a FizzBuzz-Sequence
  * @param {number} limit
- * @returns {[(string|number)]}
+ * @returns {[(string|number)]} seq
  */
 export default function fizzBuzz (limit) {
   const seq = []
-  // Write your implementation here. Fill `seq` based on limit
+  
+  const getFizzBuzzValueFor = (n) => {
+    if(n <= 0) return 0
+
+    const isFizz = number => number % 3 === 0
+    const isBuzz = number => number % 5 === 0
+
+    if(isFizz(n) && isBuzz(n)) { return "Fizz Buzz" }
+    else if(isFizz(n)) { return "Fizz" }
+    else if(isBuzz(n)) { return "Buzz" }
+    return "" + n
+  }
+
+  for(let j=1; j <= limit; ++j) {
+    seq.push(getFizzBuzzValueFor(j));
+  }
+  console.log(seq)
   return seq
 }

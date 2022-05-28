@@ -36,5 +36,10 @@ export default function * take (n, iterable) {
   // so it already returns an Iterable. You "just" need to use
   // `yield` correctly...
   //
-  // Write your code here!
+  let yielded = 0
+  for (const value of iterable) {
+    if (yielded >= n) { break }
+    yield value
+    yielded += 1
+  }
 }
