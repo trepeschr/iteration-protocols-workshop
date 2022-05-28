@@ -22,21 +22,46 @@
   - A simple way to test if a given unicode character is an emoji is: `char.match(/\p{Emoji}/u) !== null`
 */
 
+// factory-function approach
 export function createEmojiIter (text) {
-  // write your code here
+  let index = 0
+  const chars = Array.from(text)
+  return {
+    next () {
+      while (index < chars.length) {
+        const char = chars[index++]
+        if (char.match(/\p{Emoji}/u) !== null) {
+          return { done: false, value: char }
+        }
+      }
+      return { done: true, value: undefined }
+    }
+  }
 }
 
+// class-based approach
 export class EmojiIter {
   constructor (text) {
     this.chars = Array.from(text)
-    // write your code here
+    this.index = 0
   }
 
   next () {
-    // write your code here
+    while (this.index < this.chars.length) {
+      const char = this.chars[this.index++]
+      if (char.match(/\p{Emoji}/u) !== null) {
+        return { done: false, value: char }
+      }
+    }
+    return { done: true, value: undefined }
   }
 }
 
+//generator-based approach
 export function * emojiIterGen (text) {
-  // write your code here
+  for (const char of text) {
+    if (char.match(/\p{Emoji}/u) !== null) {
+      yield char
+    }
+  }
 }
